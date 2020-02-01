@@ -22,7 +22,6 @@ let data = [
 
 
 jump = 1;
-oneScroll = 1;
 imageIndex = 0 
 
 $(function () {
@@ -39,47 +38,26 @@ $(function () {
         .setPin("#zoetrope")
         .setTween(tween)
         .addTo(controller)
-        .on("leave", function() {
-            if(jump){
+        .on("leave", function() { 
                 window.scrollTo(0,0);
                 imageIndex = (imageIndex + 1) % 12;
                 $("#zoetrope .images img").attr('src', `./media/runner-${String(imageIndex).padStart(2, '0')}-02.png`);
-                $("header h1").css("color:", `rgba(255,255,255,${(Math.random()/10)})`);
-            }
-            if(oneScroll){
-                oneScroll = 0;
-                new TimelineMax().fromTo("#go", 0.2, {color: "none", x: 0}, {color: "white", x: window.innerWidth/4})
-                    .eventCallback("onComplete", function(){
-                        $("#go").css("z-index", 10000);
-                    })
-                    .eventCallback("onStart", function(){
-                        $("#go").css("display", "block");
-                    });
-                
-            }
-        })
-        .on("enter", function() {
-            $("*").css("scroll-behavior", "auto");
-            jump = 1;
         });
     
-    let pointIndex = 0;
+    
     let jointTween = new TimelineMax ()
 
     let tweens = []
     for(let i = 0; i < 2; i ++){
-        tweens.push(TweenMax.to((`.joint:nth-of-type(${i+1})`), 1, {x: data[i][pointIndex][0], y: data[i][pointIndex][1]}));
+        tweens.push(TweenMax.to((`.joint:nth-of-type(${i+1})`), 1, {x: data[i][imageIndex][0], y: data[i][imageIndex][1]}));
     }
     jointTween.add(tweens);
                 
-    
-    jointTween.autoRemoveChildren = true;
-                
+    jointTween.autoRemoveChildren = true;    
     jointTween.eventCallback("onComplete", function() {           
-        pointIndex = imageIndex
         tweens = []
         for(let i = 0; i < 2; i ++){
-            tweens.push(TweenMax.to((`.joint:nth-of-type(${i+1})`), 1, {x: data[i][pointIndex][0], y: data[i][pointIndex][1]}));
+            tweens.push(TweenMax.to((`.joint:nth-of-type(${i+1})`), 1, {x: data[i][imageIndex][0], y: data[i][imageIndex][1]}));
         }
         jointTween.add(tweens);
     });
@@ -91,10 +69,5 @@ $(function () {
     })
         .setTween(jointTween)
         .addTo(controller);
-            
-
-    $("#go").click(function() {
-        $("*").css("scroll-behavior", "smooth");
-        jump = 0;
-    });
+        
 });
