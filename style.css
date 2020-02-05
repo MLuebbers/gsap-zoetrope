@@ -2,83 +2,113 @@
 * {
     margin: 0;
     padding: 0;
-    color: white;
+    color: gray;
+
+    --font-large: 45pt;
+    --font-small: 20pt;
+
+    --spacer-small: 1em;
+    --spacer-large: 2em;
     
 }
-
+body {
+    cursor: none;
+    background-color: black;
+    overflow-x: hidden;
+}
+#body-container {
+    width: 100vw;
+    height: 100vh;
+}
 
 header {
-    font-family: Arial, Helvetica, sans-serif;
     position: fixed;
-    font-size: 50pt;
-    z-index: -200;
+    width: 100vw;
+    height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: var(--font-large);
     font-weight: bold;
-    
+
+    z-index: -200;
 }
-header h1 {
+header h1 {  
     width: 50%;
-    line-height: 1em;
+
+    line-height: var(--spacer-small);
+
+    color: black;
+    -webkit-text-stroke: 1px gray; 
+}
+
+header #about-container {
+    margin: var(--spacer-small);
+
+    overflow: hidden;
+}
+header .about {
+    position: relative;
+    transition: 0.5s top linear;
 }
 header p {
-    width: 50%;
-    margin: 2em auto;
-    font-size: 24pt;
+    width: 40%;
 
-}
-#go {
-    display: none; 
-    color: none;
-    font-size: large;
-    position: fixed;
-    bottom: 0;
-    right: 25%;
-    z-index: -1000;
-    font-family: Arial, Helvetica, sans-serif; 
-}
-#go:hover {
-    color:red;
+    margin: var(--spacer-large) auto;
+    
+    color: gray;
+    font-size: var(--font-small);
+    font-weight: lighter;
+
+    z-index: -20000;
 }
 
-body {
-    background-color: black;
-  
-}
+
 #zoetrope {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    
 }
-#zoetrope shadow {
-
-    width: 50%;
-
-}
-#zoetrope .images {
-    
+#zoetrope .images {  
+    height: 100vh;
     overflow: hidden;
-    width: 100%;
+}
+
+#zoetrope #shadow {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+
+    box-shadow:inset 0 0 100px 25px black;
 }
 
 #zoetrope .images img {
+    height: 100vh;
+    overflow: hidden;
+    display: none;
     transform-origin: top center;
-    width: 100%;
+}
+#zoetrope .images img::selection {
+    background-color: none;
 }
 
+#joints {
+  
+}
 .joint {
     position: fixed;
-    border: solid 1px red;
+    top: 0;
+    left: 30vw;
     width: 25px;
     height: 25px;
-    top: 0;
-    left: 0;
+
+    border: solid 1px red;
     border-radius: 50%;
 }
-section#about {
-    background-color: white;
-    padding: 4em;
-}
-#about p {
-    color: black !important;
-    margin-bottom: 1em;
+
+#cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 128px;
 }
